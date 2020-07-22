@@ -15,13 +15,20 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/userdb", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/hw17", { useNewUrlParser: true });
+
+
+
+
+
+
 
 //API Routes
 
 app.get("/api/workouts", (req, res) =>{
   res.json({"sample":"json"});
 });
+
 
 app.post("/api/workouts", (req, res) =>{
   res.json({"sample":"json"});
@@ -42,7 +49,7 @@ app.get("/exercise", (req, res) =>{
 });
 
 
-
+//Start Server
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
