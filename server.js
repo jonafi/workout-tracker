@@ -30,8 +30,12 @@ app.get("/api/workouts", (req, res) =>{
 });
 
 
-app.post("/api/workouts", (req, res) =>{
+app.put("/api/workouts", (req, res) =>{
   res.json({"sample":"json"});
+});
+
+app.post("/api/workouts", (req, res) =>{
+  res.json(req.body);
 });
 
 app.get("/api/workouts/range", (req, res) =>{
