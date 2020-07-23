@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
+let Workout = require("./Workout.js");
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,20 +27,35 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/hw17", { useNew
 //API Routes
 
 app.get("/api/workouts", (req, res) =>{
-  res.json({"sample":"json"});
+  Workout.find({}).then((dbworkouts)=>{  
+    res.json(dbworkouts);
+  })
+  
+
 });
 
 
-app.put("/api/workouts", (req, res) =>{
-  res.json({"sample":"json"});
+app.put("/api/workouts/:id", (req, res) =>{
+  Workout.findByIdAndUpdate(req.params.id, {$push: {excersices: req.body}}).then((dbworkout)=>{res.json(dbworkout)});
+
+
+  //{ type: 'cardio', name: 'rrrrr', distance: 3, duration: 3 }
+
 });
 
 app.post("/api/workouts", (req, res) =>{
-  res.json(req.body);
+  Workout.create({}).then((dbworkout)=>{  
+    console.log(dbworkout);
+    res.json(dbworkout);
+  })
+
+
 });
 
 app.get("/api/workouts/range", (req, res) =>{
-  res.json({"sample":"json"});
+  Workout.find({}).then((dbworkouts)=>{  
+    res.json(dbworkouts);
+  })
 });
 
 //HTML ROUTES
