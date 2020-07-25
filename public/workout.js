@@ -21,14 +21,16 @@ async function initWorkout() {
 
 function tallyExercises(exercises) {
   const tallied = exercises.reduce((acc, curr) => {
+    //Duration info was broken even in the seed data. Duration was never calculated.
+    acc.totalDuration = (acc.totalDuration || 0) + curr.duration;
     if (curr.type === "resistance") {
       acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
       acc.totalSets = (acc.totalSets || 0) + curr.sets;
       acc.totalReps = (acc.totalReps || 0) + curr.reps;
+
     } else if (curr.type === "cardio") {
       acc.totalDistance = (acc.totalDistance || 0) + curr.distance;
-      //Duration info was broken even in the seed data. Duration was never calculated.
-      acc.totalDuration = (acc.totalDuration || 0) + curr.duration;
+
     }
     return acc;
   }, {});
