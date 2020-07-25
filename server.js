@@ -34,7 +34,6 @@ app.put("/api/workouts/:id", (req, res) =>{
 
   console.log(req.body)
 
-  // ObjectID ???
   Workout.update({"_id": req.params.id}, {
 
    $push:{exercises: req.body}
