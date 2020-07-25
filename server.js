@@ -19,11 +19,6 @@ app.use(express.static("public"));
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/hw17", { useNewUrlParser: true });
 
 
-
-
-
-
-
 //API Routes
 
 app.get("/api/workouts", (req, res) =>{
@@ -36,18 +31,26 @@ app.get("/api/workouts", (req, res) =>{
 
 
 app.put("/api/workouts/:id", (req, res) =>{
-  Workout.findByIdAndUpdate(req.params.id, {$push: {excersices: req.body}}).then((dbworkout)=>{res.json(dbworkout)});
 
+  console.log(req.body)
 
-  //{ type: 'cardio', name: 'rrrrr', distance: 3, duration: 3 }
+  // ObjectID ???
+  Workout.update({"_id": req.params.id}, {
+
+   $push:{excersices: req.body}
+  })
+  .then((dbworkout)=>{
+    res.json(dbworkout)
+  });
+
 
 });
 
-app.post("/api/workouts", (req, res) =>{
-  Workout.create({}).then((dbworkout)=>{  
-    console.log(dbworkout);
-    res.json(dbworkout);
-  })
+app.post("/api/workouts/", (req, res) =>{
+  Workout.create(req)
+  .then((dbworkout)=>{
+    res.json(dbworkout)
+  });
 
 
 });
