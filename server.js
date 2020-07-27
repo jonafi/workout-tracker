@@ -16,7 +16,9 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/hw17", { useNewUrlParser: true });
+//mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/hw17", { useNewUrlParser: true });
+//Trying different database provider, added alternative Config var in Heroku
+mongoose.connect(process.env.MONGODB_ATLAS_URI || "mongodb://localhost/hw17", { useNewUrlParser: true });
 
 
 //API Routes
